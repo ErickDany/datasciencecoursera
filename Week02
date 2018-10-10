@@ -35,6 +35,7 @@ for(v_date in unique(v_activity[is.na(v_activity$steps),]$date))
 with(aggregate(steps~date,v_activity,sum),hist(steps))
 
 #Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
+par(mfrow = c(1, 2))
+with(aggregate(steps~interval,v_activity[!v_activity$weekend,],mean),plot(interval,steps,ylim=c(0,200),main='No Weekend'))
+with(aggregate(steps~interval,v_activity[v_activity$weekend,],mean),plot(interval,steps,ylim=c(0,200),main='Weekend'))
 
-
-#All of the R code needed to reproduce the results (numbers, plots, etc.) in the report
