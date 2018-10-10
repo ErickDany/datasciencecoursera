@@ -13,13 +13,26 @@ aggregate(steps~date,v_activity,median)
 with(aggregate(steps~date,v_activity,mean),plot.ts(date,steps))
 
 #The 5-minute interval that, on average, contains the maximum number of steps
-
+X<-aggregate(steps~interval,v_activity,mean)
+Y<-X[order(X$steps,decreasing = T),]
+Y[1,]
 
 #Code to describe and show a strategy for imputing missing data
-
+for(v_date in unique(v_activity[is.na(v_activity$steps),]$date))
+{
+	if(length(v_activity[!is.na(v_activity$steps) & v_activity$date==v_date,]$steps)==0)
+	{
+		v_median<-0
+	}
+	else
+	{
+		v_median<-aggregate(steps~date,v_activity[v_activity$date==v_date,],median,na.rm=TRUE)
+	}
+	v_activity[is.na(v_activity$steps) & v_activity$date==v_date,]$steps<-v_median
+}
 
 #Histogram of the total number of steps taken each day after missing values are imputed
-
+with(aggregate(steps~date,v_activity,sum),hist(steps))
 
 #Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
 
