@@ -1,0 +1,27 @@
+#Code for reading in the dataset and/or processing the data
+v_activity<-read.csv(file='activity.csv',header=T,na.strings='NA')
+v_activity$date<-as.Date(v_activity$date,'%Y-%m-%d')
+
+#Histogram of the total number of steps taken each day
+with(aggregate(steps~date,v_activity,sum),hist(steps))
+
+#Mean and median number of steps taken each day
+aggregate(steps~date,v_activity,mean)
+aggregate(steps~date,v_activity,median)
+
+#Time series plot of the average number of steps taken
+with(aggregate(steps~date,v_activity,mean),plot.ts(date,steps))
+
+#The 5-minute interval that, on average, contains the maximum number of steps
+
+
+#Code to describe and show a strategy for imputing missing data
+
+
+#Histogram of the total number of steps taken each day after missing values are imputed
+
+
+#Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
+
+
+#All of the R code needed to reproduce the results (numbers, plots, etc.) in the report
